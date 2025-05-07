@@ -10,6 +10,7 @@ import allure
 PATH_CHROMEDRIVER = "chromedriver.exe"
 EXPECTED_URL = "https://www.iana.org/help/example-domains"
 EXPECTED_TEXT = "More information"
+EXPECTED_TITLE = "Example"
 
 
 @pytest.fixture
@@ -36,6 +37,8 @@ def tests_example(init_driver):
         init_driver.get("https://example.com")
 
     try:
+        assert EXPECTED_TITLE in init_driver.title
+
         # Так как в Selenium в CSS селекторе не поддерживается конструкции такого вида :contains('text'), можем использовать XPath
         with allure.step("Get el with text contains 'More information'"):
             element = WebDriverWait(init_driver, 10).until(
